@@ -2,5 +2,5 @@
 
 WAP project
 
-run with nodemon: npm run dev\_\_
-run with node: npm start
+run with nodemon: **npm run dev**  
+run with node: **npm start**
