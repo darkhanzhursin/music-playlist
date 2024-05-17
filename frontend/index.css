@@ -1,0 +1,65 @@
+
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0;
+}
+
+nav.navbar {
+    padding: 1vw 0;;
+}
+
+.nav-links form {
+    display: flex;
+    align-items: center;
+}
+
+.tunesync-logo {
+    width: 60px;
+}
+
+.field {
+    color: #fff;
+    margin: 0 1vw;
+}
+
+nav > div {
+    margin: 0 5vw;
+}
+
+div.row > p {
+    text-align: justify;
+}
+
+.welcome-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.text-container {
+    position: relative;
+    top: 20vh;
+    width: 30vw;
+    text-align: justify;
+}
+
+
+/* Animation */
+.ml13 {
+    font-size: 5em;
+    text-transform: uppercase;
+    letter-spacing: 0.5em;
+    font-weight: 600;
+    color: #f3683d;
+    position: relative;
+    top: 30vh;
+    left: 5vw;
+    text-shadow: 2px 2px #d65b35;
+}
+  
+.ml13 .letter {
+    display: inline-block;
+    line-height: 1em;
+}
