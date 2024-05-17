@@ -9,7 +9,7 @@ app.use("/", express.static(path.join(__dirname, "/static")));
 
 // routes
 app.use("/", require("./routes/root"));
-app.use("cors"); // we can configure it later
+app.use(cors); // we can configure it later
 
 app.all("*", (req, res) => {
   res.status(404);
