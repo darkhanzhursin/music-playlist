@@ -1,5 +1,6 @@
 const express = require("express");
 const path = require("path");
+const cors = require("cors");
 
 const app = express();
 
@@ -8,6 +9,7 @@ app.use("/", express.static(path.join(__dirname, "/static")));
 
 // routes
 app.use("/", require("./routes/root"));
+app.use("cors"); // we can configure it later
 
 app.all("*", (req, res) => {
   res.status(404);
