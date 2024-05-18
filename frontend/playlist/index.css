@@ -1,0 +1,53 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0;
+}
+
+nav.navbar {
+    padding: 1vw 0;;
+}
+
+.tunesync-logo {
+    width: 60px;
+}
+
+nav > div {
+    margin: 0 5vw;
+}
+
+.table-container {
+    margin-bottom: 5vw;
+}
+
+.songs-header, .playlist-header {
+    margin: 2vw 0;
+}
+
+.add-to-playlist-icon:hover, 
+.remove-from-playlist-icon:hover,
+.play-from-playlist-icon:hover {
+    cursor: pointer;
+    background-color: #aaa;
+    border-radius: 10px;
+}
+
+/* Audio Player */
+.audio-player {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #333;
+    color: #fff;
+    padding: 1vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1;
+}
+
+.audio-player audio {
+    width: 100%;
+}
