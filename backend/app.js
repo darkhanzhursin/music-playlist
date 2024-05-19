@@ -17,6 +17,9 @@ app.use("/", express.static(path.join(__dirname, "/static")));
 // to handle content-type: application/json requests
 app.use(express.json());
 
+// to handle content-type: application/x-www-form-urlencoded requests
+app.use(express.urlencoded({ extended: false }));
+
 // routes
 app.use("/", require("./routes/root"));
 app.use(cors); // we can configure it later
