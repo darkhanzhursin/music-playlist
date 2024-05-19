@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const Music = require("./Music");
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
@@ -14,7 +15,7 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
-  playList: [String],
+  playList: [Music],
 });
 
 module.exports = mongoose.model("User", userSchema);
