@@ -6,6 +6,8 @@ const mongoose = require("mongoose");
 const connectDB = require("./config/dbConn");
 const PORT = process.env.PORT || 3000;
 
+const registerRoute = require("./routes/register");
+
 const app = express();
 
 // Connect to MongoDB
@@ -22,6 +24,8 @@ app.use(express.urlencoded({ extended: false }));
 
 // routes
 app.use("/", require("./routes/root"));
+
+app.use("/register", registerRoute);
 app.use(cors); // we can configure it later
 
 app.all("*", (req, res) => {

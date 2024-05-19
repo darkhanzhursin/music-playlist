@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const Music = require("./Music");
+const Music = require("./Music").schema;
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
