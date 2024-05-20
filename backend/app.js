@@ -8,6 +8,7 @@ const PORT = process.env.PORT || 3000;
 
 const registerRoute = require("./routes/register");
 const loginRoute = require("./routes/login");
+const usersRoute = require("./routes/user");
 
 const app = express();
 
@@ -27,6 +28,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use("/", require("./routes/root"));
 app.use("/register", registerRoute);
 app.use("/login", loginRoute);
+app.use("/users", usersRoute);
 
 app.use(cors); // we can configure it later
 
