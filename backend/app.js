@@ -11,9 +11,10 @@ const loginRoute = require("./routes/login");
 
 const app = express();
 
+app.use(cors()); // we can configure it later
+
 // Connect to MongoDB
 connectDB();
-
 // serve static files
 app.use("/", express.static(path.join(__dirname, "/static")));
 
@@ -27,8 +28,6 @@ app.use(express.urlencoded({ extended: false }));
 app.use("/", require("./routes/root"));
 app.use("/register", registerRoute);
 app.use("/login", loginRoute);
-
-app.use(cors); // we can configure it later
 
 app.all("*", (req, res) => {
   res.status(404);
