@@ -11,9 +11,12 @@ exports.handleLogin = async (req, res) => {
   if (!foundUser) return res.sendStatus(401); //Unauthorized
 
   if (foundUser.password === password) {
+    const timeElapsed = Date.now();
     res.status(200).send({
       success: true,
-      message: "Successfully logged in.",
+      message: "Successfully logged in!",
+      username,
+      date: new Date(timeElapsed),
     });
   } else {
     res.status(403).json({
