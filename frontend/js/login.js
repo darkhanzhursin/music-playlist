@@ -19,5 +19,6 @@ async function sendCredentials(e) {
     },
   });
   const res = await response.json();
-  console.log("Welcome " + res.username);
+  localStorage.setItem("User", res.username);
+  localStorage.setItem("Date", res.date);
 }
