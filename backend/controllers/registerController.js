@@ -13,12 +13,12 @@ exports.handleNewUser = async (req, res) => {
 
   try {
     // create and store the new user
-    await User.create({
+    const newUser = await User.create({
       username: username,
       password: password,
     });
 
-    res.status(201).json({ success: `New user ${username} created!` });
+    res.status(201).json(newUser);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }

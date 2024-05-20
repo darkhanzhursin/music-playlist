@@ -7,6 +7,7 @@ const connectDB = require("./config/dbConn");
 const PORT = process.env.PORT || 3000;
 
 const registerRoute = require("./routes/register");
+const loginRoute = require("./routes/login");
 
 const app = express();
 
@@ -24,8 +25,9 @@ app.use(express.urlencoded({ extended: false }));
 
 // routes
 app.use("/", require("./routes/root"));
-
 app.use("/register", registerRoute);
+app.use("/login", loginRoute);
+
 app.use(cors); // we can configure it later
 
 app.all("*", (req, res) => {

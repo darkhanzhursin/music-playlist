@@ -1,0 +1,35 @@
+{
+    "POST: /register": {
+        "req": {
+            "method": "post",
+            "body": {
+                "username": "string",
+                "password": "string"
+            }
+        },
+        "res": {
+            "status": 201,
+            "body": {
+                "user": {
+                    "_id": "string",
+                    "username": "string",
+                    "password": "string",
+                    "playList": []
+                }
+            }
+        }
+    },
+    "POST: /login": {
+        "req": {
+            "method": "post",
+            "body": {
+                "email": "string",
+                "password": "string"
+            }
+        },
+        "res": {
+            "status": 200
+        }
+    }
+    
+}

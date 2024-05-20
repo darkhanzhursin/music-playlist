@@ -2,16 +2,21 @@ const mongoose = require("mongoose");
 const Music = require("./Music").schema;
 const Schema = mongoose.Schema;
 
-const userSchema = new Schema({
-  username: {
-    type: String,
-    required: true,
+const userSchema = new Schema(
+  {
+    username: {
+      type: String,
+      required: true,
+    },
+    password: {
+      type: String,
+      required: true,
+    },
+    playList: [Music],
   },
-  password: {
-    type: String,
-    required: true,
-  },
-  playList: [Music],
-});
+  {
+    versionKey: false,
+  }
+);
 
 module.exports = mongoose.model("User", userSchema);
