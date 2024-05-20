@@ -19,6 +19,12 @@ async function sendCredentials(e) {
     },
   });
   const res = await response.json();
-  localStorage.setItem("User", res.username);
-  localStorage.setItem("Date", res.date);
+  console.log(res);
+  if (res.success === true) {
+    localStorage.setItem("User", res.username);
+    localStorage.setItem("Date", res.date);
+    window.location.replace("./playlist/index.html");
+  } else {
+    alert("Wrong username or password");
+  }
 }
