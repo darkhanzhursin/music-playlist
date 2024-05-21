@@ -10,6 +10,8 @@ const registerRoute = require("./routes/register");
 const loginRoute = require("./routes/login");
 const usersRoute = require("./routes/user");
 
+const auth = require("./middleware/auth");
+
 const app = express();
 
 app.use(cors()); // we can configure it later
@@ -29,7 +31,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use("/", require("./routes/root"));
 app.use("/register", registerRoute);
 app.use("/login", loginRoute);
-app.use("/users", usersRoute);
+app.use("/users", auth, usersRoute);
 
 app.use(cors); // we can configure it later
 
