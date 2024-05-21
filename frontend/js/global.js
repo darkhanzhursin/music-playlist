@@ -6,6 +6,7 @@ let headers = new Headers();
 headers.set("Authorization", "Basic " + credentials);
 headers.set("Content-type", "application/json");
 window.onload = function () {
+  loadPlaylistMusics();
   loadGlobalMusics();
   document
     .getElementById("global-tbody")
@@ -67,3 +68,28 @@ function loadGlobalMusics() {
       document.getElementById("global-tbody").innerHTML = html;
     });
 }
+
+function loadPlaylistMusics() {
+  let html = "";
+  fetch(SERVER + "/users/+" + userId + "playlist?page=2&limit=5", {
+    method: "GET",
+    headers,
+  })
+    .then((response) => response.json())
+    .then((musics) => {
+      console.log(musics);
+      musics.forEach((music) => {
+        html += `
+        <tr>
+          <th scope="row">${counterId}</th>
+          <td id="title${counterId}">${music.title}</td>
+          <td>
+              <img src="../static/plus-icon.svg" alt="Remove from playlist" class="remove-from-playlist-icon" musicId="${counterId++}" id="removeBtn">
+          </td>
+        </tr>
+        `;
+      });
+      document.getElementById("playlist-tbody").innerHTML = html;
+    });
+}
+
