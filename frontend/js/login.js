@@ -21,8 +21,9 @@ async function sendCredentials(e) {
   const res = await response.json();
   console.log(res);
   if (res.success === true) {
-    sessionStorage.setItem("User", res.username);
-    sessionStorage.setItem("Date", res.date);
+    sessionStorage.setItem("user", res.username);
+    sessionStorage.setItem("date", res.date);
+    sessionStorage.setItem("userId", res.id);
     window.location.replace("./playlist/index.html");
   } else {
     alert("Wrong username or password");

@@ -10,6 +10,7 @@ const musicSchema = new Schema({
   duration: String,
   year: String,
   author: String,
+  genre: String,
 });
 
 module.exports = mongoose.model("Music", musicSchema);
