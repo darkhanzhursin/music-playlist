@@ -18,7 +18,7 @@ nav > div {
 }
 
 .table-container {
-    margin-bottom: 5vw;
+    margin-bottom: 7vw;
 }
 
 .songs-header, .playlist-header {
@@ -27,10 +27,24 @@ nav > div {
 
 .add-to-playlist-icon:hover, 
 .remove-from-playlist-icon:hover,
-.play-from-playlist-icon:hover {
+.play-from-playlist-icon:hover,
+.skip-previous-icon:hover,
+.skip-next-icon:hover,
+.play-stop-icon:hover,
+.song-mode-icon:hover {
     cursor: pointer;
     background-color: #aaa;
     border-radius: 10px;
+}
+
+.removebtn, .playbtn {
+    border: 0;
+}
+
+.skip-previous, .skip-next,
+.play-stop, .song-mode-btn {
+    border: 0;
+    background-color: #333;
 }
 
 /* Audio Player */
@@ -49,5 +63,13 @@ nav > div {
 }
 
 .audio-player audio {
+    width: 100%;
+}
+
+.musicbar {
+    width: 100%;
+}
+
+.musicbar > #progressbar {
     width: 100%;
 }
