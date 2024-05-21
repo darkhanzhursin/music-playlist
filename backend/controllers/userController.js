@@ -9,3 +9,14 @@ exports.deleteMusicFromPlaylist = async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 };
+
+exports.getMusics = async (req, res) => {
+    try {
+        const { uid } = req.params;
+        const { page, limit } = req.query;
+        const musics = await service.getMusics(uid, page, limit);
+        res.json(musics);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
