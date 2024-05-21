@@ -12,9 +12,10 @@ const usersRoute = require("./routes/user");
 
 const app = express();
 
+app.use(cors()); // we can configure it later
+
 // Connect to MongoDB
 connectDB();
-
 // serve static files
 app.use("/", express.static(path.join(__dirname, "/static")));
 
