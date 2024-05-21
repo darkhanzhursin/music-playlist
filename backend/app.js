@@ -31,8 +31,6 @@ app.use("/register", registerRoute);
 app.use("/login", loginRoute);
 app.use("/users", usersRoute);
 
-app.use(cors); // we can configure it later
-
 app.all("*", (req, res) => {
   res.status(404);
   if (req.accepts("html")) {
