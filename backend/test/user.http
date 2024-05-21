@@ -1,6 +1,8 @@
-GET http://localhost:3000/users/664a8f77ddb0f8eda03d4ff1/musics?page=2&limit=5
+GET http://localhost:3000/users/664a8f77ddb0f8eda03d4ff1/musics?page=1&limit=5
 authorization: 123123123
 
 ###
 DELETE http://localhost:3000/user/664a8f77ddb0f8eda03d4ff1/music/664ba9c5bd547b4e6a2ea873
 authorization: 123123123
+
+
