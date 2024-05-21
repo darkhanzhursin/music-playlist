@@ -24,6 +24,7 @@ async function sendCredentials(e) {
     sessionStorage.setItem("user", res.username);
     sessionStorage.setItem("date", res.date);
     sessionStorage.setItem("userId", res.id);
+    sessionStorage.setItem("credentials", btoa(`${username}:${password}`));
     window.location.replace("./playlist/index.html");
   } else {
     alert("Wrong username or password");
