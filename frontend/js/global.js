@@ -24,12 +24,12 @@ function logout(e) {
 }
 
 async function addToPlaylist(e) {
-  console.log("here");
+  const attr = e.target.attributes["musicId"].value;
   e.preventDefault();
-  const title = document.getElementById("title").value;
-  const author = document.getElementById("author").value;
-  console.log("Issue need to solve");
-  const response = await fetch("http://localhost:3000/user/playlist", {
+  const title = document.getElementById(`title${attr}`).innerHTML;
+  const author = document.getElementById(`author${attr}`).innerHTML;
+  console.log(title);
+  const response = await fetch("http://localhost:3000/users/playlist", {
     method: "POST",
     body: JSON.stringify({
       title,
@@ -55,11 +55,11 @@ function loadGlobalMusics() {
       musics.forEach((music) => {
         html += `
         <tr>
-          <th scope="row">${counterId++}</th>
-          <td id="title">${music.title}</td>
-          <td id="author">${music.author}</td>
+          <th scope="row">${counterId}</th>
+          <td id="title${counterId}">${music.title}</td>
+          <td id="author${counterId}">${music.author}</td>
           <td>
-              <img src="../static/plus-icon.svg" alt="Add to playlist" class="add-to-playlist-icon" id="addBtn">
+              <img src="../static/plus-icon.svg" alt="Add to playlist" class="add-to-playlist-icon" musicId="${counterId++}" id="addBtn">
           </td>
         </tr>
         `;

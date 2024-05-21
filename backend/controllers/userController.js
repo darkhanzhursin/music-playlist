@@ -23,7 +23,7 @@ exports.getMusics = async (req, res) => {
 
 exports.addToPlaylist = async (req, res) => {
   try {
-    const { title, author, userId } = req.params;
+    const { title, author, userId } = req.body;
     const playlist = await service.addToPlaylist(title, author, userId);
     res.json(playlist);
   } catch (error) {

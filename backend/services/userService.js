@@ -26,11 +26,11 @@ exports.getMusics = async (uid, page, limit) => {
 };
 
 exports.addToPlaylist = async (title, author, userId) => {
-  const user = await User.findOne({ id: userId }).exec();
+  const user = await User.findById(userId).exec();
   if (!user) {
     throw new Error("User not found");
   }
-  const music = await Music.findOne({ name: title, author }).exec();
+  const music = await Music.findOne({ title, author }).exec();
   if (!music) {
     throw new Error("Music not found");
   }

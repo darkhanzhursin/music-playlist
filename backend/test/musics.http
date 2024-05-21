@@ -2,7 +2,7 @@ POST http://localhost:3000/musics
 Content-Type: application/json
 
 {
-    "src": "backend/static/musics/adai.mp3",
+    "src": "adai.mp3",
     "title": "Adai",
     "duration": "1:35",
     "author": "Qurmangazy",
