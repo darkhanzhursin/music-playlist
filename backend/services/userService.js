@@ -13,7 +13,7 @@ exports.deleteMusicFromPlaylist = async (uid, mid) => {
   user.save();
 };
 
-exports.getMusics = async (uid, page, limit) => {
+exports.getAllMusics = async (uid, page, limit) => {
   const user = await User.findOne({ _id: uid }).exec();
   if (!user) {
     throw new Error("User not found");
@@ -23,6 +23,14 @@ exports.getMusics = async (uid, page, limit) => {
     .limit(limit)
     .exec();
   return musics;
+};
+
+exports.getPlaylist = async (uid) => {
+  const user = await User.findOne({ _id: uid }).exec();
+  if (!user) {
+    throw new Error("User not found");
+  }
+  return user.playList;
 };
 
 exports.addToPlaylist = async (title, author, userId) => {
@@ -35,5 +43,6 @@ exports.addToPlaylist = async (title, author, userId) => {
     throw new Error("Music not found");
   }
   user.playList.push(music);
+  user.save();
   return user.playList;
 };
