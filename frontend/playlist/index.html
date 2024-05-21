@@ -1,218 +1,109 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="../static/logo.png">
-    <title>TuneSync</title>
-    <link href="../static/bootstrap.min.css" rel="stylesheet">
-    <link href="index.css" rel="stylesheet">
-    <script src="../js/logout.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="../static/logo.png">
+  <title>TuneSync</title>
+  <link href="../static/bootstrap.min.css" rel="stylesheet">
+  <link href="index.css" rel="stylesheet">
+  <script src="../js/global.js"></script>
 </head>
+
 <body>
 
-    <nav class="navbar navbar-dark bg-dark">
-        <div class="nav-logo">
-            <img src="../static/logo.png" class="tunesync-logo" alt="TuneSync">
-        </div>
-        <div class="nav-links">
-            <button class="btn btn-outline-light" id="logoutBtn">Logout</button>
-        </div>
-    </nav>
-
-    <div class="container table-container">
-        <div class="row">
-            <div class="col-12">
-                <div class="songs-header">
-                    <h1>Songs you may interest</h1>
-                </div>
-                <div class="songs-table">
-                    <table class="table table-hover">
-                        <thead>
-                          <tr>
-                            <th scope="col">Id</th>
-                            <th scope="col">Title</th>
-                            <th scope="col">Release Date</th>
-                            <th scope="col">Actions</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                            <th scope="row">1</th>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>
-                                <img src="../static/plus-icon.svg" alt="Add to playlist" class="add-to-playlist-icon">
-                            </td>
-                          </tr>
-                          <tr>
-                            <th scope="row">2</th>
-                            <td>Jacob</td>
-                            <td>Thornton</td>
-                            <td>
-                                <img src="../static/plus-icon.svg" alt="Add to playlist" class="add-to-playlist-icon">
-                            </td>
-                          </tr>
-                          <tr>
-                            <th scope="row">3</th>
-                            <td colspan="2">Larry the Bird</td>
-                            <td>
-                                <img src="../static/plus-icon.svg" alt="Add to playlist" class="add-to-playlist-icon">
-                            </td>
-                          </tr>
-                          <tr>
-                            <th scope="row">3</th>
-                            <td colspan="2">Larry the Bird</td>
-                            <td>
-                                <img src="../static/plus-icon.svg" alt="Add to playlist" class="add-to-playlist-icon">
-                            </td>
-                          </tr>
-                          <tr>
-                            <th scope="row">3</th>
-                            <td colspan="2">Larry the Bird</td>
-                            <td>
-                                <img src="../static/plus-icon.svg" alt="Add to playlist" class="add-to-playlist-icon">
-                            </td>
-                          </tr>
-                          <tr>
-                            <th scope="row">3</th>
-                            <td colspan="2">Larry the Bird</td>
-                            <td>
-                                <img src="../static/plus-icon.svg" alt="Add to playlist" class="add-to-playlist-icon">
-                            </td>
-                          </tr>
-                          <tr>
-                            <th scope="row">3</th>
-                            <td colspan="2">Larry the Bird</td>
-                            <td>
-                                <img src="../static/plus-icon.svg" alt="Add to playlist" class="add-to-playlist-icon">
-                            </td>
-                          </tr>
-                          <tr>
-                            <th scope="row">3</th>
-                            <td colspan="2">Larry the Bird</td>
-                            <td>
-                                <img src="../static/plus-icon.svg" alt="Add to playlist" class="add-to-playlist-icon">
-                            </td>
-                          </tr>
-                          <tr>
-                            <th scope="row">3</th>
-                            <td colspan="2">Larry the Bird</td>
-                            <td>
-                                <img src="../static/plus-icon.svg" alt="Add to playlist" class="add-to-playlist-icon">
-                            </td>
-                          </tr>
-                          <tr>
-                            <th scope="row">3</th>
-                            <td colspan="2">Larry the Bird</td>
-                            <td>
-                                <img src="../static/plus-icon.svg" alt="Add to playlist" class="add-to-playlist-icon">
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
-                      <nav aria-label="...">
-                        <ul class="pagination">
-                          <li class="page-item disabled">
-                            <a class="page-link" href="#" tabindex="-1">Previous</a>
-                          </li>
-                          <li class="page-item"><a class="page-link" href="#">1</a></li>
-                          <li class="page-item active">
-                            <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
-                          </li>
-                          <li class="page-item"><a class="page-link" href="#">3</a></li>
-                          <li class="page-item">
-                            <a class="page-link" href="#">Next</a>
-                          </li>
-                        </ul>
-                      </nav>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-12">
-                <div class="playlist-header">
-                    <h1>Your playlist</h1>
-                </div>
-                <div class="playlist-table">
-                    <table class="table table-hover">
-                        <thead>
-                          <tr>
-                            <th scope="col">Index</th>
-                            <th scope="col">Title</th>
-                            <th scope="col">Actions</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                            <th scope="row">1</th>
-                            <td class="playlist-music-name">Abigail_Christine_Hill_-_Backstabber.mp3</td>
-                            <td>
-                              <button class="removebtn">
-                                <img src="../static/remove-icon.svg" alt="Remove from playlist" class="remove-from-playlist-icon">
-                              </button>
-                              <button class="playbtn">
-                                <img src="../static/play-icon.svg" music="Abigail_Christine_Hill_-_Backstabber.mp3" alt="Play from playlist" class="play-from-playlist-icon">
-                              </button>
-                            </td>
-                          </tr>
-                          <tr>
-                            <th scope="row">2</th>
-                            <td class="playlist-music-name">Alfonso_Lugo_Feat._Jasmine_Crowe_Alfonso_Lugo.mp3</td>
-                            <td>
-                              <button class="removebtn">
-                                <img src="../static/remove-icon.svg" alt="Remove from playlist" class="remove-from-playlist-icon">
-                              </button>
-                              <button class="playbtn">
-                                <img src="../static/play-icon.svg" music="Alfonso_Lugo_Feat._Jasmine_Crowe_Alfonso_Lugo.mp3" alt="Play from playlist" class="play-from-playlist-icon">
-                              </button>
-                            </td>
-                          </tr>
-                          <tr>
-                            <th scope="row">3</th>
-                            <td class="playlist-music-name">Beach_party_Lukas.mp3</td>
-                            <td>
-                              <button class="removebtn">
-                                <img src="../static/remove-icon.svg" alt="Remove from playlist" class="remove-from-playlist-icon">
-                              </button>
-                              <button class="playbtn">
-                                <img src="../static/play-icon.svg" music="Beach_party_Lukas.mp3" alt="Play from playlist" class="play-from-playlist-icon">
-                              </button>
-                            </td>
-                          </tr>
-                          <tr>
-                            <th scope="row">4</th>
-                            <td class="playlist-music-name">color_out_host.mp3</td>
-                            <td>
-                              <button class="removebtn">
-                                <img src="../static/remove-icon.svg" alt="Remove from playlist" class="remove-from-playlist-icon">
-                              </button>
-                              <button class="playbtn">
-                                <img src="../static/play-icon.svg" music="color_out_host.mp3" alt="Play from playlist" class="play-from-playlist-icon">
-                              </button>
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
-                      <nav aria-label="...">
-                        <ul class="pagination">
-                          <li class="page-item disabled">
-                            <a class="page-link" href="#" tabindex="-1">Previous</a>
-                          </li>
-                          <li class="page-item"><a class="page-link" href="#">1</a></li>
-                          <li class="page-item active">
-                            <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
-                          </li>
-                          <li class="page-item"><a class="page-link" href="#">3</a></li>
-                          <li class="page-item">
-                            <a class="page-link" href="#">Next</a>
-                          </li>
-                        </ul>
-                      </nav>
-                </div>
-            </div>
-        </div>
+  <nav class="navbar navbar-dark bg-dark">
+    <div class="nav-logo">
+      <img src="../static/logo.png" class="tunesync-logo" alt="TuneSync">
     </div>
+    <div class="nav-links">
+      <button class="btn btn-outline-light" id="logoutBtn">Logout</button>
+    </div>
+  </nav>
+
+  <div class="container table-container">
+    <div class="row">
+      <div class="col-12">
+        <div class="songs-header">
+          <h1>Songs you may interest</h1>
+        </div>
+        <div class="songs-table" id="global">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Title</th>
+                <th scope="col">Author</th>
+                <th scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="global-tbody">
+
+            </tbody>
+          </table>
+          <nav aria-label="...">
+            <ul class="pagination">
+              <li class="page-item disabled">
+                <a class="page-link" href="#" tabindex="-1">Previous</a>
+              </li>
+              <li class="page-item"><a class="page-link" href="#">1</a></li>
+              <li class="page-item active">
+                <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
+              </li>
+              <li class="page-item"><a class="page-link" href="#">3</a></li>
+              <li class="page-item">
+                <a class="page-link" href="#">Next</a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <div class="playlist-header">
+          <h1>Your playlist</h1>
+        </div>
+        <div class="playlist-table">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col">Index</th>
+                <th scope="col">Title</th>
+                <th scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="playlist-tbody">
+            </tbody>
+          </table>
+          <nav aria-label="...">
+            <ul class="pagination">
+              <li class="page-item disabled">
+                <a class="page-link" href="#" tabindex="-1">Previous</a>
+              </li>
+              <li class="page-item"><a class="page-link" href="#">1</a></li>
+              <li class="page-item active">
+                <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
+              </li>
+              <li class="page-item"><a class="page-link" href="#">3</a></li>
+              <li class="page-item">
+                <a class="page-link" href="#">Next</a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="audio-player">
+    <!-- <audio controls>
+      <source src="horse.ogg" type="audio/ogg">
+      <source src="horse.mp3" type="audio/mpeg">
+      Your browser does not support the audio element.
+    </audio> -->
+  </div>
 
     <div class="audio-player">
       <div class="container-fluid">
@@ -261,6 +152,7 @@
     </div>
 
     <script src="index.js"></script>
-    
+  
 </body>
+
 </html>
