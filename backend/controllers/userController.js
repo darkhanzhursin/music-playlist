@@ -14,8 +14,8 @@ exports.getAllMusics = async (req, res) => {
   try {
     const { uid } = req.params;
     const { page, limit } = req.query;
-    const musics = await service.getAllMusics(uid, page, limit);
-    res.json(musics);
+    const musicsObj = await service.getAllMusics(uid, page, limit);
+    res.json(musicsObj);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
