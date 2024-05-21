@@ -11,6 +11,7 @@ const loginRoute = require("./routes/login");
 const usersRoute = require("./routes/user");
 
 const auth = require("./middleware/auth");
+const musicsRoute = require("./routes/musics");
 
 const app = express();
 
@@ -33,6 +34,7 @@ app.use("/", require("./routes/root"));
 app.use("/register", registerRoute);
 app.use("/login", loginRoute);
 app.use("/users", auth, usersRoute);
+app.use("/musics", musicsRoute);
 
 // app.use((req, res, next) => {
 //   console.log('4');

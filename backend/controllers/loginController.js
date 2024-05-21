@@ -9,7 +9,6 @@ exports.handleLogin = async (req, res) => {
 
   const foundUser = await User.findOne({ username: username }).exec();
   if (!foundUser) return res.sendStatus(401); //Unauthorized
-
   if (foundUser.password === password) {
     const timeElapsed = Date.now();
     res.status(200).send({
@@ -17,6 +16,7 @@ exports.handleLogin = async (req, res) => {
       message: "Successfully logged in!",
       username,
       date: new Date(timeElapsed),
+      id: foundUser.id,
     });
   } else {
     res.status(403).json({
