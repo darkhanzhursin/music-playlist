@@ -9,6 +9,8 @@ const PORT = process.env.PORT || 3000;
 const registerRoute = require("./routes/register");
 const loginRoute = require("./routes/login");
 const usersRoute = require("./routes/user");
+
+const auth = require("./middleware/auth");
 const musicsRoute = require("./routes/musics");
 
 const app = express();
@@ -30,7 +32,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use("/", require("./routes/root"));
 app.use("/register", registerRoute);
 app.use("/login", loginRoute);
-app.use("/users", usersRoute);
+app.use("/users", auth, usersRoute);
 app.use("/musics", musicsRoute);
 
 app.all("*", (req, res) => {
