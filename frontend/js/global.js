@@ -1,7 +1,8 @@
 const SERVER = "http://localhost:3000";
 const userId = sessionStorage.getItem("userId");
 const credentials = sessionStorage.getItem("credentials");
-let counterId = 1;
+let counterIdtableglobal = 1;
+let counterIdtableplaylist = 1;
 let headers = new Headers();
 headers.set("Authorization", "Basic " + credentials);
 headers.set("Content-type", "application/json");
@@ -33,7 +34,7 @@ async function addToPlaylist(e) {
   const title = document.getElementById(`title${attr}`).innerHTML;
   const author = document.getElementById(`author${attr}`).innerHTML;
   console.log(title);
-  const response = await fetch("http://localhost:3000/users/playlist", {
+  const response = fetch("http://localhost:3000/users/playlist", {
     method: "POST",
     body: JSON.stringify({
       title,
@@ -41,10 +42,9 @@ async function addToPlaylist(e) {
       userId,
     }),
     headers: headers,
-  });
-  const music = await response.json();
-
-  console.log(music);
+  }).then(data => data.json()).then(data => populatetableplaylist(data)).catch(data => console.log());
+  //const music = await response.json();
+  //console.log(music);
 }
 async function removeFromPlaylist(e) {
   const attr = e.target.attributes["musicId"].value;
@@ -66,15 +66,15 @@ function loadGlobalMusics() {
   })
     .then((response) => response.json())
     .then((musics) => {
-      console.log(musics);
+      //console.log(musics);
       musics.forEach((music) => {
         html += `
         <tr>
-          <th scope="row">${counterId}</th>
-          <td id="title${counterId}">${music.title}</td>
-          <td id="author${counterId}">${music.author}</td>
+          <th scope="row">${counterIdtableglobal}</th>
+          <td id="title${counterIdtableglobal}">${music.title}</td>
+          <td id="author${counterIdtableglobal}">${music.author}</td>
           <td>
-              <img src="../static/plus-icon.svg" alt="Add to playlist" class="add-to-playlist-icon" musicId="${counterId++}" id="addBtn">
+              <img src="../static/plus-icon.svg" alt="Add to playlist" class="add-to-playlist-icon" musicId="${counterIdtableglobal++}" id="addBtn">
           </td>
         </tr>
         `;
@@ -91,18 +91,23 @@ function loadPlaylistUser() {
   })
     .then((response) => response.json())
     .then((musics) => {
-      console.log(musics);
-      musics.forEach((music) => {
-        html += `
-        <tr>
-          <th scope="row">${counterId}</th>
-          <td id="title${counterId}">${music.title}</td>
-          <td>
-              <img src="../static/remove-icon.svg" alt="Remove from playlist" class="remove-to-playlist-icon" musicId="${counterId++}" id="removeBtn">
-          </td>
-        </tr>
-        `;
-      });
-      document.getElementById("playlist-tbody").innerHTML = html;
+      //console.log(musics);
+      populatetableplaylist(musics);
     });
+}
+function populatetableplaylist(musics) {
+  let html = '';
+  counterIdtableplaylist = 1;
+  musics.forEach((music) => {
+    html += `
+    <tr>
+      <th scope="row">${counterIdtableplaylist}</th>
+      <td id="title${counterIdtableplaylist}">${music.title}</td>
+      <td>
+          <img src="../static/remove-icon.svg" alt="Remove from playlist" class="remove-to-playlist-icon" musicId="${counterIdtableplaylist++}" id="removeBtn">
+      </td>
+    </tr>
+    `;
+  });
+  document.getElementById("playlist-tbody").innerHTML = html;
 }
