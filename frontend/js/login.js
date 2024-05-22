@@ -19,7 +19,6 @@ async function sendCredentials(e) {
     },
   });
   const res = await response.json();
-  console.log(res);
   if (res.success === true) {
     sessionStorage.setItem("user", res.username);
     sessionStorage.setItem("date", res.date);
