@@ -2,31 +2,30 @@ const SERVER_URL = "http://localhost:3000";
 const PLAY_ICON = "../static/play_arrow_icon.svg";
 const PAUSE_ICON = "../static/pause_icon.svg";
 
-const musics = [];
+let musics = [];
 let musicsShuffled = [];
 
-var progressBarChanged = false;
-var songMode = 0; // 0 = repeat, 1 = shuffle, 2 = repeat 1 song
+let progressBarChanged = false;
+let songMode = 0; // 0 = repeat, 1 = shuffle, 2 = repeat 1 song
 
-var progressbar = document.getElementById("progressbar");
-var skipPreviousBtn = document.getElementById("skip-previous");
-var skipNextBtn = document.getElementById("skip-next");
-var playStopBtn = document.getElementById("play-stop");
-var playIcon = document.getElementById("play-stop-icon");
-var musicNames = document.getElementsByClassName("playlist-music-name");
-var audio = document.getElementById("audio");
-var musicName = document.getElementById("music-name");
-var buttons = document.getElementsByClassName("playbtn");
-var txtCurrentTime = document.getElementById("current-time");
-var txtDuration = document.getElementById("duration");
-var songModeBtn = document.getElementById("song-mode-btn");
-var songModeIcon = document.getElementById("song-mode-icon");
-var removebuttons = document.getElementsByClassName("removebtn");
+let progressbar = document.getElementById("progressbar");
+let skipPreviousBtn = document.getElementById("skip-previous");
+let skipNextBtn = document.getElementById("skip-next");
+let playStopBtn = document.getElementById("play-stop");
+let playIcon = document.getElementById("play-stop-icon");
+let musicNames = document.getElementsByClassName("playlist-music-name");
+let audio = document.getElementById("audio");
+let musicName = document.getElementById("music-name");
+let buttons = document.getElementsByClassName("playbtn");
+let txtCurrentTime = document.getElementById("current-time");
+let txtDuration = document.getElementById("duration");
+let songModeBtn = document.getElementById("song-mode-btn");
+let songModeIcon = document.getElementById("song-mode-icon");
+let removebuttons = document.getElementsByClassName("removebtn");
 
 function refresh() {
     removebuttons = document.getElementsByClassName("removebtn");
     buttons = document.getElementsByClassName("playbtn");
-    musicNames = document.getElementsByClassName("playlist-music-name");
 
     for (const element of buttons) {
         element.addEventListener("click", playMusic);
@@ -154,9 +153,12 @@ function progressBarChange(e) {
 }
 
 function getAllMusics() {
+    musicNames = document.getElementsByClassName("playlist-music-name");
+    musics = [];
+
     for (const element of musicNames) {
         const musicName = element.innerHTML;
-        if (musicName.endsWith(".mp3") && musicName) {
+        if (musicName) {
             musics.push(musicName);
         }
     }
