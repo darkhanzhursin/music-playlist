@@ -23,19 +23,25 @@ var songModeBtn = document.getElementById("song-mode-btn");
 var songModeIcon = document.getElementById("song-mode-icon");
 var removebuttons = document.getElementsByClassName("removebtn");
 
-window.onload = function () {
-    getAllMusics();
-    
+function refresh() {
+    removebuttons = document.getElementsByClassName("removebtn");
+    buttons = document.getElementsByClassName("playbtn");
+    musicNames = document.getElementsByClassName("playlist-music-name");
+
     for (const element of buttons) {
-        element.onclick = playMusic;
-        //element.addEventListener("click", playMusic);
+        element.addEventListener("click", playMusic);
     }
-    console.log(buttons);
 
     for (const element of removebuttons) {
-        //element.onclick=removemusic;
-        //element.addEventListener("click", playMusic);
+        element.addEventListener("click", removeFromPlaylist);
     }
+
+    getAllMusics();
+}
+
+window.onload = function () {
+    getAllMusics();
+
     audio.addEventListener("timeupdate", timeUpdate);
     audio.addEventListener("playing", playing);
     audio.addEventListener("pause", pause);
@@ -53,9 +59,16 @@ window.onload = function () {
     document
         .getElementById("global-tbody")
         .addEventListener("click", handleButtonClick);
-    //document.getElementsByClassName("playbtn").addEventListener("click", playMusic)
     document.getElementById("logoutBtn").onclick = logout;
-};
+
+    for (const element of buttons) {
+        element.addEventListener("click", playMusic);
+    }
+
+    for (const element of removebuttons) {
+        element.addEventListener("click", removeFromPlaylist);
+    }
+}
 
 function changeSongMode(e) {
     songMode = (songMode + 1) % 3;
@@ -176,14 +189,13 @@ function playing(e) {
 }
 
 function playMusic(e) {
-    console.log("CALLLLLL");
     const music = e.target.attributes["music"].value;
     play(music);
 }
 
 function play(name, loop = false) {
     musicName.innerHTML = name;
-    audio.src = `${SERVER_URL}/music/${name}`;
+    audio.src = `${SERVER_URL}/static/music/${name}`;
     audio.title = name;
     audio.currentTime = 0;
     if (loop) {
