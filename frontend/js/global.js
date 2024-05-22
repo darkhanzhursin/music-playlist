@@ -15,6 +15,7 @@ function removeButtonClick(e) {
   if (e.target.id === "removeBtn") removeFromPlaylist(e);
 }
 
+
 function logout(e) {
   e.preventDefault();
   window.location.replace("../index.html");

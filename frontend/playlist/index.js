@@ -25,6 +25,7 @@ var removebuttons = document.getElementsByClassName("removebtn");
 
 window.onload = function () {
     getAllMusics();
+    
     for (const element of buttons) {
         element.onclick = playMusic;
         //element.addEventListener("click", playMusic);
@@ -52,6 +53,7 @@ window.onload = function () {
     document
         .getElementById("global-tbody")
         .addEventListener("click", handleButtonClick);
+    //document.getElementsByClassName("playbtn").addEventListener("click", playMusic)
     document.getElementById("logoutBtn").onclick = logout;
 };
 
