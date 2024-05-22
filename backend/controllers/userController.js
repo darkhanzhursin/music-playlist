@@ -4,8 +4,8 @@ exports.deleteMusicFromPlaylist = async (req, res) => {
   try {
     const { uid } = req.params;
     const { title, author } = req.body;
-    await service.deleteMusicFromPlaylist(uid, title, author);
-    res.status(204).end();
+    const playlist = await service.deleteMusicFromPlaylist(uid, title, author);
+    res.status(200).json(playlist);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

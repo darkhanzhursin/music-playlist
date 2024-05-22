@@ -21,13 +21,26 @@ var txtCurrentTime = document.getElementById("current-time");
 var txtDuration = document.getElementById("duration");
 var songModeBtn = document.getElementById("song-mode-btn");
 var songModeIcon = document.getElementById("song-mode-icon");
+var removebuttons = document.getElementsByClassName("removebtn");
 
-window.onload = function () {
-    getAllMusics();
+function refresh() {
+    removebuttons = document.getElementsByClassName("removebtn");
+    buttons = document.getElementsByClassName("playbtn");
+    musicNames = document.getElementsByClassName("playlist-music-name");
 
     for (const element of buttons) {
         element.addEventListener("click", playMusic);
     }
+
+    for (const element of removebuttons) {
+        element.addEventListener("click", removeFromPlaylist);
+    }
+
+    getAllMusics();
+}
+
+window.onload = function () {
+    getAllMusics();
 
     audio.addEventListener("timeupdate", timeUpdate);
     audio.addEventListener("playing", playing);
@@ -40,7 +53,22 @@ window.onload = function () {
     progressbar.addEventListener("change", progressBarChange);
 
     songModeBtn.addEventListener("click", changeSongMode);
-};
+
+    loadGlobalMusics();
+    loadPlaylistUser();
+    document
+        .getElementById("global-tbody")
+        .addEventListener("click", handleButtonClick);
+    document.getElementById("logoutBtn").onclick = logout;
+
+    for (const element of buttons) {
+        element.addEventListener("click", playMusic);
+    }
+
+    for (const element of removebuttons) {
+        element.addEventListener("click", removeFromPlaylist);
+    }
+}
 
 function changeSongMode(e) {
     songMode = (songMode + 1) % 3;
@@ -60,11 +88,11 @@ function changeSongMode(e) {
 
 function fisherYatesShuffle(arr) {
     for (let i = arr.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [arr[i], arr[j]] = [arr[j], arr[i]];
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
     }
     return arr;
-  }
+}
 
 function ended(e) {
     const title = e.target.title;
@@ -111,9 +139,9 @@ function timeUpdate(e) {
     if (!progressBarChanged && e.srcElement.duration && e.srcElement.currentTime) {
         progressbar.value = (e.srcElement.currentTime / e.srcElement.duration) * 100;
         const currentMinutes = parseInt(e.srcElement.currentTime) % 60;
-        txtCurrentTime.innerHTML = parseInt(e.srcElement.currentTime / 60) + ":" + currentMinutes.toString().padStart(2, "0"); ;
+        txtCurrentTime.innerHTML = parseInt(e.srcElement.currentTime / 60) + ":" + currentMinutes.toString().padStart(2, "0");;
         const durationMinutes = parseInt(e.srcElement.duration) % 60;
-        txtDuration.innerHTML = parseInt(e.srcElement.duration / 60) + ":" + durationMinutes.toString().padStart(2, "0"); 
+        txtDuration.innerHTML = parseInt(e.srcElement.duration / 60) + ":" + durationMinutes.toString().padStart(2, "0");
     }
 }
 
@@ -128,7 +156,7 @@ function progressBarChange(e) {
 function getAllMusics() {
     for (const element of musicNames) {
         const musicName = element.innerHTML;
-        if (musicName.endsWith(".mp3") && musicName) { 
+        if (musicName.endsWith(".mp3") && musicName) {
             musics.push(musicName);
         }
     }
@@ -159,7 +187,7 @@ function pause(e) {
 function playing(e) {
     playIcon.src = PAUSE_ICON;
 }
-  
+
 function playMusic(e) {
     const music = e.target.attributes["music"].value;
     play(music);
@@ -167,7 +195,7 @@ function playMusic(e) {
 
 function play(name, loop = false) {
     musicName.innerHTML = name;
-    audio.src = `${SERVER_URL}/music/${name}`;
+    audio.src = `${SERVER_URL}/static/music/${name}`;
     audio.title = name;
     audio.currentTime = 0;
     if (loop) {

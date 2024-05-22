@@ -6,15 +6,16 @@ exports.deleteMusicFromPlaylist = async (uid, title, author) => {
   if (!user) {
     throw new Error("User not found");
   }
-  if (
-    !user.playList.some((music) => {
-      return title === music.title && author === music.author;
-    })
-  ) {
+  const promise = user.playList.some((music) => {
+    return title === music.title && author === music.author;
+  });
+  if (!promise)
+  {
     throw new Error("Music not found in the playlist");
   }
   user.playList.pull({ title, author });
-  user.save();
+  await user.save();
+  return user.playList ?? [];
 };
 
 exports.getAllMusics = async (uid, page, limit) => {
