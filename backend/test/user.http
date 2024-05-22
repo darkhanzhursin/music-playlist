@@ -6,8 +6,14 @@ GET http://localhost:3000/users/664a9f01132d7865159960f1/playlist
 authorization: 123123123
 
 ###
-DELETE http://localhost:3000/users/664a8f77ddb0f8eda03d4ff1/music/664ba9c5bd547b4e6a2ea873
+DELETE http://localhost:3000/users/664a9f01132d7865159960f1/music
 authorization: 123123123
+Content-Type: application/json
+
+{
+    "title": "Adai",
+    "author": "Qurmangazy"
+}
 
 
 ###
