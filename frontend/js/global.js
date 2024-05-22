@@ -38,6 +38,7 @@ async function addToPlaylist(e) {
     }),
     headers: headers,
     }).then(data => data.json()).then(data => populatetableplaylist(data)).catch(data => console.log());
+    refresh();
   }
 
 }
@@ -46,7 +47,9 @@ function checkIfMusicIsInPlaylist(title, author) {
   const trs = document.getElementById("playlist-tbody").children;
 
   for (const tr of trs) {
-    return (tr.cells[1].innerHTML === title && tr.cells[2].innerHTML === author);
+    if (tr.cells[1].innerHTML === title && tr.cells[2].innerHTML === author) {
+      return true;
+    }
   }
   return false;
 }
@@ -66,6 +69,7 @@ async function removeFromPlaylist(e) {
   }).then(data => data.json()).then(data => {
     const dt = data.filter(x => x.title !== title && x.author !== author);
     populatetableplaylist(dt);
+    getAllMusics();
   }).catch(data => console.log(data));
 }
 function loadGlobalMusics() {
