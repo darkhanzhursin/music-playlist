@@ -1,12 +1,16 @@
 const SERVER = "http://localhost:3000";
 const userId = sessionStorage.getItem("userId");
 const credentials = sessionStorage.getItem("credentials");
+
 let counterIdtableglobal = 1;
 let counterIdtableplaylist = 1;
 let headers = new Headers();
 headers.set("Authorization", "Basic " + credentials);
 headers.set("Content-type", "application/json");
 
+let counterId = 1;
+let totalMusics = 0;
+let pageId = 1;
 
 function handleButtonClick(e) {
   if (e.target.id === "addBtn") addToPlaylist(e);
@@ -17,6 +21,7 @@ function removeButtonClick(e) {
 }
 
 function logout(e) {
+  console.log("here");
   e.preventDefault();
   window.location.replace("../index.html");
   sessionStorage.clear();
@@ -72,13 +77,18 @@ async function removeFromPlaylist(e) {
     getAllMusics();
   }).catch(data => console.log(data));
 }
+
 function loadGlobalMusics() {
   let html = "";
-  fetch(SERVER + "/users/" + userId + "/musics?page=2&limit=5", {
+  fetch(SERVER + "/users/" + userId + `/musics?page=${pageId}&limit=5`, {
     method: "GET",
     headers,
   })
     .then((response) => response.json())
+    .then((musicsObj) => {
+      totalMusics = musicsObj.total;
+      return musicsObj.musics;
+    })
     .then((musics) => {
       musics.forEach((music) => {
         html += `
