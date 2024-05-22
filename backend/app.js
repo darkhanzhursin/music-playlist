@@ -21,7 +21,6 @@ app.use(cors()); // we can configure it later
 connectDB();
 // serve static files
 app.use("/static", express.static(path.join(__dirname, "static")));
-
 // to handle content-type: application/json requests
 app.use(express.json());
 

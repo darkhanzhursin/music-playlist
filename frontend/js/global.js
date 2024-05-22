@@ -6,14 +6,7 @@ let counterIdtableplaylist = 1;
 let headers = new Headers();
 headers.set("Authorization", "Basic " + credentials);
 headers.set("Content-type", "application/json");
-window.onload = function () {
-  loadGlobalMusics();
-  loadPlaylistUser();
-  document
-    .getElementById("global-tbody")
-    .addEventListener("click", handleButtonClick);
-  document.getElementById("logoutBtn").onclick = logout;
-};
+
 
 function handleButtonClick(e) {
   if (e.target.id === "addBtn") addToPlaylist(e);
@@ -97,15 +90,23 @@ function loadPlaylistUser() {
 }
 function populatetableplaylist(musics) {
   let html = '';
+  console.log(musics);
   counterIdtableplaylist = 1;
   musics.forEach((music) => {
     html += `
+    
     <tr>
-      <th scope="row">${counterIdtableplaylist}</th>
-      <td id="title${counterIdtableplaylist}">${music.title}</td>
-      <td>
-          <img src="../static/remove-icon.svg" alt="Remove from playlist" class="remove-to-playlist-icon" musicId="${counterIdtableplaylist++}" id="removeBtn">
-      </td>
+                            <th scope="row">${counterIdtableplaylist}</th>
+                            <td id= "title${counterIdtableplaylist++}" class="playlist-music-name">${music.src}</td>
+                            <td>
+                              <button class="removebtn">
+                                <img src="../static/remove-icon.svg" alt="Remove from playlist" class="remove-from-playlist-icon">
+                              </button>
+                              <button class="playbtn">
+                                <img src="../static/play-icon.svg" music="${music.src}" alt="Play from playlist" class="play-from-playlist-icon">
+                              </button>
+                            </td>
+                          </tr>
     </tr>
     `;
   });
