@@ -35,13 +35,13 @@ async function addToPlaylist(e) {
 
   if (!checkIfMusicIsInPlaylist(title, author)) {
     fetch("http://localhost:3000/users/playlist", {
-    method: "POST",
-    body: JSON.stringify({
-      title,
-      author,
-      userId,
-    }),
-    headers: headers,
+      method: "POST",
+      body: JSON.stringify({
+        title,
+        author,
+        userId,
+      }),
+      headers: headers,
     }).then(data => data.json()).then(data => populatetableplaylist(data)).catch(data => console.log());
     refresh();
   }
@@ -77,20 +77,18 @@ async function removeFromPlaylist(e) {
     getAllMusics();
   }).catch(data => console.log(data));
 }
+function loadGlobalMusics(page = 1) {
 
-function loadGlobalMusics() {
   let html = "";
-  fetch(SERVER + "/users/" + userId + `/musics?page=${pageId}&limit=5`, {
+  fetch(SERVER + "/users/" + userId + `/musics?page=${page}&limit=5`, {
     method: "GET",
     headers,
   })
     .then((response) => response.json())
-    .then((musicsObj) => {
-      totalMusics = musicsObj.total;
-      return musicsObj.musics;
-    })
     .then((musics) => {
-      musics.forEach((music) => {
+      counterIdtableglobal = (page * 5) + 1 - 5;
+      musics.musics.forEach((music) => {
+
         html += `
         <tr>
           <th scope="row">${counterIdtableglobal}</th>
@@ -101,14 +99,31 @@ function loadGlobalMusics() {
           </td>
         </tr>
         `;
+
       });
       document.getElementById("global-tbody").innerHTML = html;
+
+      let htmlpagination = `<li id="music-previous-page-button" class="page-item page-previous-btn ${page > 1 ? "enable" : "disabled"}">
+      <a class="page-link" href="#" tabindex="-1">Previous</a>
+    </li>`;
+      for (let i = 1; i < (musics.total / 5) + 1; i++) {
+        htmlpagination += `<li class="page-item page-number-btn ${i === page ? "active" : ""}"><a class="page-link" href="#">${i}</a></li>`
+      }
+      console.log(page*5);
+      console.log(musics.total);
+
+      htmlpagination += ` <li id="music-next-page-button" class="page-item page-next-btn ${(page * 5) < musics.total ? "enable" : "disabled"}"> 
+       <a class="page-link" href="#">Next</a>
+    </li> `;
+
+      document.getElementById("paginationpart").innerHTML = htmlpagination;
+      refresh();
     });
 }
 
 function loadPlaylistUser() {
   let html = "";
-  fetch(SERVER + "/users/" + userId + "/playlist?page=2&limit=5", {
+  fetch(SERVER + "/users/" + userId + "/playlist", {
     method: "GET",
     headers,
   })

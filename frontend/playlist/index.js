@@ -22,19 +22,33 @@ let txtDuration = document.getElementById("duration");
 let songModeBtn = document.getElementById("song-mode-btn");
 let songModeIcon = document.getElementById("song-mode-icon");
 let removebuttons = document.getElementsByClassName("removebtn");
+let musicPageButtons = document.getElementsByClassName("page-number-btn");
+let musicnextPageButtons = document.getElementById("music-next-page-button");
+let musicpreviousPageButtons = document.getElementById("music-previous-page-button");
 
 function refresh() {
     removebuttons = document.getElementsByClassName("removebtn");
     buttons = document.getElementsByClassName("playbtn");
-  loadGlobalMusics();
-  loadPlaylistUser();
+    musicPageButtons = document.getElementsByClassName("page-number-btn");
+    musicnextPageButtons = document.getElementById("music-next-page-button");
+    musicpreviousPageButtons = document.getElementById("music-previous-page-button");
 
-  for (const element of buttons) {
-    element.addEventListener("click", playMusic);
-  }
+    if (musicnextPageButtons) {
+        musicnextPageButtons.addEventListener("click", nextpage);
+    }
+    if (musicpreviousPageButtons) {
+        musicpreviousPageButtons.addEventListener("click", previouspage);
+    }
+    for (const element of buttons) {
+        element.addEventListener("click", playMusic);
+    }
 
     for (const element of removebuttons) {
         element.addEventListener("click", removeFromPlaylist);
+    }
+
+    for (const element of musicPageButtons) {
+        element.addEventListener("click", onChangeMusicPage);
     }
 
     getAllMusics();
@@ -69,7 +83,27 @@ window.onload = function () {
         element.addEventListener("click", removeFromPlaylist);
     }
     songModeBtn.addEventListener("click", changeSongMode);
-};
+
+    for (const element of musicPageButtons) {
+        element.addEventListener("click", onChangeMusicPage);
+    }
+
+}
+function previouspage(e) {
+    let currentpage = parseInt(document.getElementsByClassName("page-item active")[0].firstChild.innerHTML) - 1;
+    if (currentpage >= 1)
+        loadGlobalMusics(currentpage);
+}
+
+function nextpage(e) {
+    let currentpage = parseInt(document.getElementsByClassName("page-item active")[0].firstChild.innerHTML) + 1;
+
+    if (e.target.parentElement.className.indexOf('enable') > -1)
+        loadGlobalMusics(currentpage);
+}
+function onChangeMusicPage(e) {
+    loadGlobalMusics(parseInt(e.target.innerHTML));
+}
 
 function changeSongMode(e) {
   songMode = (songMode + 1) % 3;
