@@ -105,6 +105,54 @@
     </audio> -->
   </div>
 
+    <div class="audio-player">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-2"></div>
+          <div class="col-8">
+            <p id="music-name"></p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-2">
+            <div class="audio-buttons">
+              <button id="skip-previous" class="skip-previous">
+                <img src="../static/skip_previous_icon.svg" alt="Skip to previous music" class="skip-previous-icon">
+              </button>
+              <button id="play-stop" class="play-stop">
+                <img src="../static/play_arrow_icon.svg" alt="Play/stop music" id="play-stop-icon" class="play-stop-icon">
+              </button>
+              <button id="skip-next" class="skip-next">
+                <img src="../static/skip_next_icon.svg" alt="Skip to next music" class="skip-next-icon">
+              </button>
+            </div>
+          </div>
+          <div class="col-8">
+            <div class="musicbar">
+              <input type="range" min="0" max="100" step="0.1" value="0" id="progressbar" />
+            </div>
+            <div class="time">
+              <span id="current-time">0:00</span>
+              <span>/</span>
+              <span id="duration">0:00</span>
+            </div>
+          </div>
+          <div class="col-2">
+            <div class="song-mode">
+              <button id="song-mode-btn" class="song-mode-btn">
+                <img src="../static/repeat_icon.svg" alt="Song mode" id="song-mode-icon" class="song-mode-icon">
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <audio id="audio">
+        Your browser does not support the audio element.
+      </audio>
+    </div>
+
+    <script src="index.js"></script>
+  
 </body>
 
 </html>
