@@ -1,16 +1,21 @@
 const User = require("../models/User");
 const Music = require("../models/Music");
 
-exports.deleteMusicFromPlaylist = async (uid, mid) => {
+exports.deleteMusicFromPlaylist = async (uid, title, author) => {
   const user = await User.findOne({ _id: uid }).exec();
   if (!user) {
     throw new Error("User not found");
   }
-  if (!user.playList.some((music) => music._id == mid)) {
+  const promise = user.playList.some((music) => {
+    return title === music.title && author === music.author;
+  });
+  if (!promise)
+  {
     throw new Error("Music not found in the playlist");
   }
-  user.playList.pull({ _id: mid });
-  user.save();
+  user.playList.pull({ title, author });
+  await user.save();
+  return user.playList ?? [];
 };
 
 exports.getAllMusics = async (uid, page, limit) => {

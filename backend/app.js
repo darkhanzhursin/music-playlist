@@ -20,9 +20,7 @@ app.use(cors()); // we can configure it later
 // Connect to MongoDB
 connectDB();
 // serve static files
-app.use("/music", express.static(path.join(__dirname, "static", "music")));
-//app.use("/music", express.static(path.join(__dirname, "./static")));
-
+app.use("/static", express.static(path.join(__dirname, "static")));
 // to handle content-type: application/json requests
 app.use(express.json());
 
@@ -36,11 +34,6 @@ app.use("/login", loginRoute);
 app.use("/users", auth, usersRoute);
 app.use("/musics", musicsRoute);
 
-// app.use((req, res, next) => {
-//   console.log('4');
-//   res.send('Hi~~~Again');
-// })
-
 app.all("*", (req, res) => {
   res.status(404);
   if (req.accepts("html")) {
@@ -51,8 +44,7 @@ app.all("*", (req, res) => {
     res.type("txt").send("404 Not Found");
   }
 });
-// app.listen(3000, () => console.log(`Server is running on port ${PORT}`));
-console.log(PORT);
+
 mongoose.connection.once("open", () => {
   console.log("Connected to MongoDB");
   app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));

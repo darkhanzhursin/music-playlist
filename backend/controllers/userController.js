@@ -2,9 +2,10 @@ const service = require("../services/userService");
 
 exports.deleteMusicFromPlaylist = async (req, res) => {
   try {
-    const { uid, mid } = req.params;
-    await service.deleteMusicFromPlaylist(uid, mid);
-    res.status(204).end();
+    const { uid } = req.params;
+    const { title, author } = req.body;
+    const playlist = await service.deleteMusicFromPlaylist(uid, title, author);
+    res.status(200).json(playlist);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

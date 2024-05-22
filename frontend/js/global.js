@@ -1,22 +1,17 @@
 const SERVER = "http://localhost:3000";
 const userId = sessionStorage.getItem("userId");
 const credentials = sessionStorage.getItem("credentials");
-let counterId = 1;
+let counterIdtableglobal = 1;
+let counterIdtableplaylist = 1;
 let headers = new Headers();
 headers.set("Authorization", "Basic " + credentials);
 headers.set("Content-type", "application/json");
-window.onload = function () {
-  loadGlobalMusics();
-  loadPlaylistUser();
-  document
-    .getElementById("global-tbody")
-    .addEventListener("click", handleButtonClick);
-  document.getElementById("logoutBtn").onclick = logout;
-};
+
 
 function handleButtonClick(e) {
   if (e.target.id === "addBtn") addToPlaylist(e);
 }
+
 function removeButtonClick(e) {
   if (e.target.id === "removeBtn") removeFromPlaylist(e);
 }
@@ -32,8 +27,9 @@ async function addToPlaylist(e) {
   e.preventDefault();
   const title = document.getElementById(`title${attr}`).innerHTML;
   const author = document.getElementById(`author${attr}`).innerHTML;
-  console.log(title);
-  const response = await fetch("http://localhost:3000/users/playlist", {
+
+  if (!checkIfMusicIsInPlaylist(title, author)) {
+    fetch("http://localhost:3000/users/playlist", {
     method: "POST",
     body: JSON.stringify({
       title,
@@ -41,22 +37,36 @@ async function addToPlaylist(e) {
       userId,
     }),
     headers: headers,
-  });
-  const music = await response.json();
+    }).then(data => data.json()).then(data => populatetableplaylist(data)).catch(data => console.log());
+  }
 
-  console.log(music);
 }
+
+function checkIfMusicIsInPlaylist(title, author) {
+  const trs = document.getElementById("playlist-tbody").children;
+
+  for (const tr of trs) {
+    return (tr.cells[1].innerHTML === title && tr.cells[2].innerHTML === author);
+  }
+  return false;
+}
+
 async function removeFromPlaylist(e) {
-  const attr = e.target.attributes["musicId"].value;
   e.preventDefault();
-  console.log(attr);
-  const response = await fetch("http://localhost:3000/users/" + userId + "/music/" + attr, {
+  const musicId = e.target.attributes["musicId"].value;
+  const title = document.getElementById(`title_${musicId}`).innerHTML;
+  const author = document.getElementById(`author_${musicId}`).innerHTML;
+  await fetch(`${SERVER}/users/${userId}/music`, {
     method: "DELETE",
     headers: headers,
-  });
-  const music = await response.json();
-
-  console.log(music);
+    body: JSON.stringify({
+      title,
+      author
+    })
+  }).then(data => data.json()).then(data => {
+    const dt = data.filter(x => x.title !== title && x.author !== author);
+    populatetableplaylist(dt);
+  }).catch(data => console.log(data));
 }
 function loadGlobalMusics() {
   let html = "";
@@ -66,15 +76,14 @@ function loadGlobalMusics() {
   })
     .then((response) => response.json())
     .then((musics) => {
-      console.log(musics);
       musics.forEach((music) => {
         html += `
         <tr>
-          <th scope="row">${counterId}</th>
-          <td id="title${counterId}">${music.title}</td>
-          <td id="author${counterId}">${music.author}</td>
+          <th scope="row">${counterIdtableglobal}</th>
+          <td id="title${counterIdtableglobal}">${music.title}</td>
+          <td id="author${counterIdtableglobal}">${music.author}</td>
           <td>
-              <img src="../static/plus-icon.svg" alt="Add to playlist" class="add-to-playlist-icon" musicId="${counterId++}" id="addBtn">
+              <img src="../static/plus-icon.svg" alt="Add to playlist" class="add-to-playlist-icon" musicId="${counterIdtableglobal++}" id="addBtn">
           </td>
         </tr>
         `;
@@ -91,18 +100,30 @@ function loadPlaylistUser() {
   })
     .then((response) => response.json())
     .then((musics) => {
-      console.log(musics);
-      musics.forEach((music) => {
-        html += `
-        <tr>
-          <th scope="row">${counterId}</th>
-          <td id="title${counterId}">${music.title}</td>
-          <td>
-              <img src="../static/remove-icon.svg" alt="Remove from playlist" class="remove-to-playlist-icon" musicId="${counterId++}" id="removeBtn">
-          </td>
-        </tr>
-        `;
-      });
-      document.getElementById("playlist-tbody").innerHTML = html;
+      populatetableplaylist(musics);
     });
+}
+function populatetableplaylist(musics) {
+  let html = '';
+  counterIdtableplaylist = 1;
+  musics.forEach((music) => {
+    html += `
+      <tr>
+        <th scope="row">${counterIdtableplaylist}</th>
+        <td id="title_${counterIdtableplaylist}">${music.title}</td>
+        <td id="author_${counterIdtableplaylist}" hidden>${music.author}</td>
+        <td id="src_${counterIdtableplaylist}" class="playlist-music-name" hidden>${music.src}</td>
+        <td>
+          <button class="removebtn">
+            <img src="../static/remove-icon.svg" musicId="${counterIdtableplaylist++}" alt="Remove from playlist" class="remove-from-playlist-icon">
+          </button>
+          <button class="playbtn">
+            <img src="../static/play-icon.svg" music="${music.src}" alt="Play from playlist" class="play-from-playlist-icon">
+          </button>
+        </td>
+      </tr>
+    `;
+  });
+  document.getElementById("playlist-tbody").innerHTML = html;
+  refresh();
 }
