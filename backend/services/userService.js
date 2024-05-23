@@ -27,7 +27,9 @@ exports.getAllMusics = async (uid, page, limit) => {
     .skip((page - 1) * limit)
     .limit(limit)
     .exec();
-  return musics;
+
+  const total = await Music.countDocuments({}).exec();
+  return { musics, total };
 };
 
 exports.getPlaylist = async (uid) => {

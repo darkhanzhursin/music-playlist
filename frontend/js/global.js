@@ -1,11 +1,15 @@
 const SERVER = "http://localhost:3000";
 const userId = sessionStorage.getItem("userId");
 const credentials = sessionStorage.getItem("credentials");
+
 let counterIdtableglobal = 1;
 let counterIdtableplaylist = 1;
 let headers = new Headers();
 headers.set("Content-type", "application/json");
 
+let counterId = 1;
+let totalMusics = 0;
+let pageId = 1;
 
 function handleButtonClick(e) {
   if (e.target.id === "addBtn") addToPlaylist(e);
@@ -16,6 +20,7 @@ function removeButtonClick(e) {
 }
 
 function logout(e) {
+  console.log("here");
   e.preventDefault();
   window.location.replace("../index.html");
   sessionStorage.clear();
@@ -29,13 +34,13 @@ async function addToPlaylist(e) {
 
   if (!checkIfMusicIsInPlaylist(title, author)) {
     fetch("http://localhost:3000/users/playlist", {
-    method: "POST",
-    body: JSON.stringify({
-      title,
-      author,
-      userId,
-    }),
-    headers: headers,
+      method: "POST",
+      body: JSON.stringify({
+        title,
+        author,
+        userId,
+      }),
+      headers: headers,
     }).then(data => data.json()).then(data => populatetableplaylist(data)).catch(data => console.log());
     refresh();
   }
@@ -71,19 +76,22 @@ async function removeFromPlaylist(e) {
     getAllMusics();
   }).catch(data => console.log(data));
 }
-function loadGlobalMusics() {
+function loadGlobalMusics(page = 1) {
+
   let html = "";
   const credential = sessionStorage.getItem("credentials");
   if (credential) {
     headers.set("Authorization", credential);
   }
-  fetch(SERVER + "/users/" + userId + "/musics?page=2&limit=5", {
+  fetch(SERVER + "/users/" + userId + `/musics?page=${page}&limit=5`, {
     method: "GET",
     headers,
   })
     .then((response) => response.json())
     .then((musics) => {
-      musics.forEach((music) => {
+      counterIdtableglobal = (page * 5) + 1 - 5;
+      musics.musics.forEach((music) => {
+
         html += `
         <tr>
           <th scope="row">${counterIdtableglobal}</th>
@@ -94,15 +102,31 @@ function loadGlobalMusics() {
           </td>
         </tr>
         `;
+
       });
       document.getElementById("global-tbody").innerHTML = html;
-    })
-    .catch((error) => window.location.replace("../index.html"));
+
+      let htmlpagination = `<li id="music-previous-page-button" class="page-item page-previous-btn ${page > 1 ? "enable" : "disabled"}">
+      <a class="page-link" href="#" tabindex="-1">Previous</a>
+    </li>`;
+      for (let i = 1; i < (musics.total / 5) + 1; i++) {
+        htmlpagination += `<li class="page-item page-number-btn ${i === page ? "active" : ""}"><a class="page-link" href="#">${i}</a></li>`
+      }
+      console.log(page*5);
+      console.log(musics.total);
+
+      htmlpagination += ` <li id="music-next-page-button" class="page-item page-next-btn ${(page * 5) < musics.total ? "enable" : "disabled"}"> 
+       <a class="page-link" href="#">Next</a>
+    </li> `;
+
+      document.getElementById("paginationpart").innerHTML = htmlpagination;
+      refresh();
+    }).catch((error) => window.location.replace("../index.html"));
 }
 
 function loadPlaylistUser() {
   let html = "";
-  fetch(SERVER + "/users/" + userId + "/playlist?page=2&limit=5", {
+  fetch(SERVER + "/users/" + userId + "/playlist", {
     method: "GET",
     headers,
   })
