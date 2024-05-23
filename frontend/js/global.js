@@ -5,7 +5,6 @@ const credentials = sessionStorage.getItem("credentials");
 let counterIdtableglobal = 1;
 let counterIdtableplaylist = 1;
 let headers = new Headers();
-headers.set("Authorization", "Basic " + credentials);
 headers.set("Content-type", "application/json");
 
 let counterId = 1;
@@ -80,6 +79,10 @@ async function removeFromPlaylist(e) {
 function loadGlobalMusics(page = 1) {
 
   let html = "";
+  const credential = sessionStorage.getItem("credentials");
+  if (credential) {
+    headers.set("Authorization", credential);
+  }
   fetch(SERVER + "/users/" + userId + `/musics?page=${page}&limit=5`, {
     method: "GET",
     headers,
@@ -118,7 +121,7 @@ function loadGlobalMusics(page = 1) {
 
       document.getElementById("paginationpart").innerHTML = htmlpagination;
       refresh();
-    });
+    }).catch((error) => window.location.replace("../index.html"));
 }
 
 function loadPlaylistUser() {
